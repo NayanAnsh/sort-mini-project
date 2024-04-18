@@ -1,56 +1,45 @@
-import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
+const Main = () => {
+  return (
+    <>
+      {/* Header */}
+      <header className="bg-gray-800 text-white py-4">
+        <div className="container mx-auto px-4">
+          <h1 className="text-2xl font-bold">Sorting Algorithm Visualizer</h1>
+        </div>
+      </header>
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' ,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
+      {/* Navbar */}
+      <nav className="bg-gray-600 text-white py-2">
+        <div className="container mx-auto px-4 flex justify-between">
+          <ul className="flex space-x-4">
+            <li>
+              <Link to="/" className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/Visualizer" className="hover:underline">
+                Visualizer
+              </Link>
+            </li>
+          </ul>
+          {/* Add more links or components here */}
+        </div>
+      </nav>
+      <div id="detail">
+        <Outlet />
+      </div>
+      {/* Footer */}
+      <footer className="bg-gray-800 fixed bottom-0 left-0 right-0  text-white py-4">
+        <div className="container mx-auto px-4 text-center">
+          &copy; 2024 Sorting Algorithm Visualizer
+        </div>
+      </footer>
+    </>
+  );
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => Math.random()*1000),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => Math.random()*1000),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
- export function Main() {
-  return <Bar options={options} data={data} />;
-}
+export default Main;
