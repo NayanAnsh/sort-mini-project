@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">
-        VIT Sorting Algorithm Visualizer
-      </h1>
+      <h1 className="text-4xl font-bold mb-8">Sorting Algorithm Visualizer</h1>
       <p className="text-lg mb-6">
         Welcome to the Sorting Algorithm Visualizer project! This platform
         allows you to visualize the working of popular sorting algorithms,
