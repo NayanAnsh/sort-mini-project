@@ -7,7 +7,7 @@ Welcome to the Sorting Algorithm Visualizer project! This platform allows you to
 The Sorting Algorithm Visualizer project is developed as part of the Web Development course at VIT under the guidance of professor Ezhil Arasi V. The project aims to provide an interactive way for students to understand the functioning of sorting algorithms through visualization.
 
 ## How to Run
-To view the project live, visit: [Sorting Algorithm Visualizer.](https://65.2.123.63:3000)
+To view the project live, visit: [Sorting Algorithm Visualizer.](65.2.123.63:3000)
 ## Sorting Algorithms
 
 ### Bubble Sort
