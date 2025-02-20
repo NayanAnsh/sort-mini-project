@@ -1,13 +1,15 @@
-# VIT Sorting Algorithm Visualizer
+# Sorting Algorithm Visualizer + Terrafom
 
 Welcome to the Sorting Algorithm Visualizer project! This platform allows you to visualize the working of popular sorting algorithms, including Bubble Sort and Insertion Sort.
 
 ## About the Project
 
-The Sorting Algorithm Visualizer project is developed as part of the Web Development course at VIT under the guidance of professor Ezhil Arasi V. The project aims to provide an interactive way for students to understand the functioning of sorting algorithms through visualization.
+The project aims to provide an interactive way for students to understand the functioning of sorting algorithms through visualization.I have recently added Terraform IaC for easy deployment.
 
-## How to Run
-To view the project live, visit: [Sorting Algorithm Visualizer.](http://65.2.123.63:3000/)
+## Live Deployment
+
+To view the project live, visit: [Sorting Algorithm Visualizer.](http://sorting-website-bucket20250218200211800200000001.s3-website.ap-south-1.amazonaws.com/)
+
 ## Sorting Algorithms
 
 ### Bubble Sort
@@ -50,7 +52,7 @@ function insertionSort(arr) {
 
 Start visualizing sorting algorithms now and gain a deeper understanding of their operations!
 
-## How to Run
+## How to Run Locally
 
 To run this project locally, follow these steps:
 
@@ -59,3 +61,62 @@ To run this project locally, follow these steps:
 3. Run `npm install` to install the dependencies.
 4. Run `npm start` to start the development server.
 5. Open your browser and visit `http://localhost:3000` to view the project.
+
+## Deployment using Terraform
+
+This project has been deployed to AWS S3 using Terraform.
+
+### Prerequisites
+
+- Install [Terraform](https://developer.hashicorp.com/terraform/downloads)
+- Configure AWS CLI with appropriate credentials (`aws configure`)
+
+### Terraform Setup and Deployment
+
+Terraform files are located in the `terraform` folder. To deploy the project using Terraform, follow these steps:
+
+1. Navigate to the `terraform` directory:
+   ```sh
+   cd terraform
+   ```
+2. Initialize Terraform:
+   ```sh
+   terraform init
+   ```
+3. Apply the Terraform configuration:
+   ```sh
+   terraform apply -auto-approve
+   ```
+
+### Terraform Variables
+
+The Terraform configuration uses the following variables:
+
+```hcl
+variable "region" {
+    type = string
+    default = "ap-south-1"
+}
+
+variable "bucket_prefix" {
+    type = string
+    default = "sorting-website-bucket"
+}
+```
+
+### Terraform Outputs
+
+After deployment, Terraform provides the following outputs:
+
+```hcl
+output "bucket_name" {
+  value = aws_s3_bucket.main_bucket.bucket
+}
+
+output "bucket_url" {
+  value = aws_s3_bucket_website_configuration.example.website_endpoint
+}
+```
+
+Once deployed, the website will be available at the `bucket_url` outputted by Terraform.
+
