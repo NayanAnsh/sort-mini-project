@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useLocation } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Main from "./layouts/main";
 import Home from "./layouts/home";
-
+import { SocketProvider } from "./context/socketContext";
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <SocketProvider>
+
     <RouterProvider router={router} />
+    </SocketProvider>
   </React.StrictMode>
 );
 

@@ -1,7 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useSocket } from "../context/socketContext";
 
 function Home() {
+  const socket = useSocket();
+  const location = useLocation();  
+  useEffect(()=>{
+    // In most cases, it should be fine to leave your code as-is,
+    //  since the useEffect will only run once in production.
+      const {event,payload} = socket.buildSiteChangeEvent(location)
+      console.log(payload)
+      socket.trackEvent(event,payload);
+    },[location])
+
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Sorting Algorithm Visualizer</h1>
