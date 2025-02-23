@@ -1,7 +1,19 @@
 import Chart from "./layouts/chart";
 import "./App.css";
+import { useSocket } from "./context/socketContext";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+   const socket = useSocket();
+    const location = useLocation();  
+    useEffect(()=>{
+          // In most cases, it should be fine to leave your code as-is,
+    //  since the useEffect will only run once in production.
+        const {event,payload} = socket.buildSiteChangeEvent(location)
+        console.log(payload)
+        socket.trackEvent(event,payload);
+      },[location])
   return (
     <div className="relative">
       {/* Main Content */}

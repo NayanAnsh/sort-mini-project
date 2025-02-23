@@ -4,6 +4,7 @@ import { Bar } from "react-chartjs-2";
 import { insertionSort } from "../insertionSort";
 import { bubbleSort } from "../bubbleSort";
 import { selectionSort } from "../selectionSort";
+import { useSocket } from "../context/socketContext";
 
 const sizeR = 80;
 const rangeR = 30;
@@ -75,8 +76,12 @@ const Chart = () => {
       display: false,
     },
   };
+
+  const socketmanager = useSocket();
   const handleSubmit = () => {
     // Convert arrayInput string to an array of integers
+    const {event , payload} = socketmanager.buildButtonClickEvent("Array Update")
+    socketmanager.trackEvent(event,payload)
     const inputDataArray = arrayInput
       .split(",")
       .map((str) => parseInt(str.trim()));
@@ -173,6 +178,8 @@ const Chart = () => {
         <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-2">
           <button
             onClick={() => {
+              const {event , payload} = socketmanager.buildButtonClickEvent("executeInsertionSort:Outer")
+              socketmanager.trackEvent(event,payload)
               executeInsertionSort(0);
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -181,6 +188,8 @@ const Chart = () => {
           </button>
           <button
             onClick={() => {
+              const {event , payload} = socketmanager.buildButtonClickEvent("executeInsertionSort:Inner")
+              socketmanager.trackEvent(event,payload)
               executeInsertionSort(1);
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -189,6 +198,8 @@ const Chart = () => {
           </button>
           <button
             onClick={() => {
+              const {event , payload} = socketmanager.buildButtonClickEvent("executeBubbleSort:Inner")
+              socketmanager.trackEvent(event,payload)
               executeBubbleSort(0);
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -197,6 +208,8 @@ const Chart = () => {
           </button>
           <button
             onClick={() => {
+              const {event , payload} = socketmanager.buildButtonClickEvent("executeBubbleSort:Outer")
+              socketmanager.trackEvent(event,payload)
               executeBubbleSort(1);
             }}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
