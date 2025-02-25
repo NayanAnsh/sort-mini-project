@@ -2,6 +2,7 @@
 import { io, Socket } from 'socket.io-client';
 import { buttonStream } from './ButtonStream';
 import { siteStream } from './SiteStream';
+import { mouseStream } from './mouseStream';
 
 class SocketManager {
   socket: Socket;
@@ -59,6 +60,9 @@ class SocketManager {
       });
       this.socket.on("Site", (data: string) => {
         siteStream.add(data);
+      });
+      this.socket.on("Mouse", (data: string) => {
+        mouseStream.add(data);
       });
       this.listenerSetup = true;
     }

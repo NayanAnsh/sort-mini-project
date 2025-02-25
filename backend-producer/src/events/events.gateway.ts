@@ -42,4 +42,15 @@ export class EventsGateway {
    
     return { success: true }; //Client will clear there history of events
   }
+  @SubscribeMessage('Mouse')
+  async handleMouseMessage(
+    @MessageBody() data: any[],
+  ): Promise<{ success: boolean }> {
+    console.log(data);
+
+  await this.kafka.sendTopic('Mouse', JSON.stringify(data))
+    //console.log(b)
+   
+    return { success: true }; //Client will clear there history of events
+  }
 }

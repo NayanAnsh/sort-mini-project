@@ -3,12 +3,12 @@ import { buttonStream, buttonData } from "./lib/ButtonStream";
 import { StreamItem } from "./lib/Stream";
 import { siteData, siteStream } from "./lib/SiteStream";
 import TimeSeriesChart from "./components/buttonAnalysisCompoenents/main";
-
+import { MouseData, mouseStream } from "./lib/mouseStream";
+import MouseHeatmap from "./components/mouseAnalysisComponents/mouseHeatmap"
 const ButtonStreamComponent: React.FC = () => {
   const [buttonDataList, setButtonDataList] = useState<
     StreamItem<buttonData>[]
   >([]);
-  const [siteDataList, setSiteDataList] = useState<StreamItem<siteData>[]>([]);
 
   useEffect(() => {
     const handleListUpdate = (updatedList: StreamItem<buttonData>[]) => {
@@ -22,6 +22,7 @@ const ButtonStreamComponent: React.FC = () => {
     };
   }, []);
 
+  const [siteDataList, setSiteDataList] = useState<StreamItem<siteData>[]>([]);
   useEffect(() => {
     const handleListUpdate = (updatedList: StreamItem<siteData>[]) => {
       setSiteDataList([...updatedList]);
@@ -31,6 +32,21 @@ const ButtonStreamComponent: React.FC = () => {
 
     return () => {
       siteStream.deRegisterForEvents(handleListUpdate);
+    };
+  });
+
+ const [mouseDataList, setMouseDataList] = useState<StreamItem<MouseData>[]>([]);
+  useEffect(() => {
+    const handleMouseListUpdate = (updatedList: StreamItem<MouseData>[]) => {
+      console.log("3456789098765434567890987654")
+      console.log(updatedList)
+      setMouseDataList([...updatedList]);
+    };
+    console.log("moudfihgkudfriufliaegSS")
+    mouseStream.registerforEvents(handleMouseListUpdate);
+
+    return () => {
+      mouseStream.deRegisterForEvents(handleMouseListUpdate);
     };
   });
 
@@ -56,7 +72,14 @@ const ButtonStreamComponent: React.FC = () => {
       <div className="mb-8">
         <TimeSeriesChart events={buttonDataList} />
       </div>
-   
+      <div className="dashboard">
+      <h2>User Interaction Heatmap</h2>
+      <MouseHeatmap 
+        data={mouseDataList}
+        width="800px"
+        height="600px"
+      />
+    </div>
 
       <div className="flex justify-center mb-8">
         <button
@@ -99,6 +122,25 @@ const ButtonStreamComponent: React.FC = () => {
                 <span className="font-medium text-green-600">{data.type}</span>
                 <br />
                 <span className="text-gray-600">Current: {data.current}</span>
+                <br />
+                <span className="text-gray-500 text-sm">
+                  {new Date(data.timeStamp).toLocaleString()}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div className="bg-gray-100 p-4 rounded-lg shadow">
+          <h3 className="text-xl font-semibold mb-4 text-gray-700">
+            Mouse Datank
+          </h3>
+          <ul className="space-y-2">
+            {mouseDataList.map((data) => (
+              <li key={data.key} className="bg-white p-3 rounded shadow-sm">
+                <span className="font-medium text-green-600">{data.type}</span>
+                <br />
+                <span className="text-gray-600">Current: {data.x },{ data.y}</span>
                 <br />
                 <span className="text-gray-500 text-sm">
                   {new Date(data.timeStamp).toLocaleString()}

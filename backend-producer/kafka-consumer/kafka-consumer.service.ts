@@ -21,7 +21,6 @@ export class KafkaConsumerService {
       await this.consumer.connect();
       this.logger.log('Kafka consumer connected.');
 
-      // Subscribe to the topic(s) you need. Adjust 'your-topic' as needed.
       await this.consumer.subscribe({
         topic: 'Buttons',
         fromBeginning: true,
@@ -39,7 +38,6 @@ export class KafkaConsumerService {
       });
     } catch (error) {
       this.logger.error('Error during Kafka consumer initialization:', error);
-      // Depending on your needs, you might retry connection or handle this error further.
       throw new Error('Kafka consumer initialization failed.');
     }
   }

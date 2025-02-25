@@ -14,7 +14,7 @@ export class KafkaService {
     });
     this.producer = this.kafka.producer();
     this.admin = this.kafka.admin();
-    this.topics = ['Buttons', 'Site'];
+    this.topics = ['Buttons', 'Site','Mouse'];
     //await this.producer.connect();
   }
 
@@ -52,7 +52,6 @@ export class KafkaService {
 
   async sendTopic(topic: string, payload: string) {
     try {
-      console.log(typeof payload);
       await this.producer.send({
         topic,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -32,6 +32,11 @@ export class KafkaConsumerService {
         topic: 'Site',
         fromBeginning: true,
       });
+      await this.consumer.subscribe({
+        topic: 'Mouse',
+
+        fromBeginning: true,
+      });
       this.logger.log('Subscribed to topic: your-topic');
       await this.consumer.run({
         // eslint-disable-next-line @typescript-eslint/require-await
@@ -46,8 +51,11 @@ export class KafkaConsumerService {
             this.sender.emitButtonData(message?.value?.toString());
 
           }else if( topic == "Site" ){
+            console.log("sdfsdf")
             this.sender.emitSiteData(message?.value?.toString());
 
+          }else if(topic == "Mouse"){
+            this.sender.emitMouseData(message?.value?.toString());
           }
         },
       });
