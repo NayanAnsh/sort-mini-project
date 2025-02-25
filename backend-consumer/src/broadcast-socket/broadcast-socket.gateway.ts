@@ -22,5 +22,13 @@ export class BroadcastSocketGateway {
     this.server.emit('Site', data);
     return 'Hello world!';
   }
+  @SubscribeMessage('Mouse')
+  emitMouseData(@MessageBody() data: any): string {
+    console.log("Emited to  Mouse")
+
+    this.server.emit('Mouse', data);
+    return 'Hello world!';
+  }
+
 
 }

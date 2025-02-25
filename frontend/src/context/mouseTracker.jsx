@@ -12,12 +12,12 @@ const [x, setX] = useState()
         if (e.type === "mousemove") {
             setX(e.clientX);
             setY(e.clientY);
-            res = socket.buildMouseTrackerEvent(x,y,e.type);
+            res = socket.buildMouseTrackerEvent(e.clientX,e.clientY,e.type);
 
           } else if (e.type === "touchmove" && e.touches.length > 0) {
             setX(Math.round(e.touches[0].clientX));
             setY(Math.round(e.touches[0].clientY));
-            res = socket.buildMouseTrackerEvent(x,y,e.type);
+            res = socket.buildMouseTrackerEvent(Math.round(e.touches[0].clientX),Math.round(e.touches[0].clientY));
 
           }
           if(res)

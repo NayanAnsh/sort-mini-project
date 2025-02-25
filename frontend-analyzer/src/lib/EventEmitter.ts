@@ -1,6 +1,7 @@
 
  type Listener = (data: any) => void;
 export class EventEmitter<T> {
+    
     private events: { [event: string]: Listener[] } = {};
     
   on(event: string, listener: Listener): void {

@@ -71,9 +71,9 @@ class SocketManager {
   }
 
   flushQueue() {
+    console.log(this.eventQueue[0])
     while(this.isConnected && this.eventQueue.length > this.bufferSize) {
       console.log("Message sent ")
-      console.log(this.eventQueue)
       const element = this.eventQueue[this.eventQueue.length - 1]
       console.log(this.eventQueue[this.eventQueue.length - 1].event)
      this.socket.emit(element.event, element.payload);
