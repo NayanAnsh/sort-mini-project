@@ -2,11 +2,15 @@ import Chart from "./layouts/chart";
 import "./App.css";
 import { useSocket } from "./context/socketContext";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+
    const socket = useSocket();
-    const location = useLocation();  
+    const location = useLocation(); 
+    
+    
+
     useEffect(()=>{
           // In most cases, it should be fine to leave your code as-is,
     //  since the useEffect will only run once in production.
@@ -24,7 +28,6 @@ function App() {
           This visualizer allows you to see how various sorting algorithms work
           in real-time.
         </p>
-
         {/* Chart Component */}
         <Chart />
       </div>

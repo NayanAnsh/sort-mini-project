@@ -7,7 +7,7 @@ class SocketManager {
     this.eventQueue = [];
     this.topicQueue = [];
     this.isConnected = false;
-    this.bufferSize = 3; // size to keep as buffer , increase its value if network congestion
+    this.bufferSize = 0; // size to keep as buffer , increase its value if network congestion
   }
   
   async connect() {
@@ -28,6 +28,7 @@ class SocketManager {
         this.isConnected = false;
       });
     }
+    console.log(this.connect)
     console.log("Connection is there")
     return this.socket;
   }
@@ -51,20 +52,37 @@ class SocketManager {
       }
     } 
   }
-
-  trackEvent(event,payload) {
-    this.eventQueue.push(payload);
-    this.flushQueue(event);
-  }
-
-  flushQueue(event) {
-    if (this.isConnected && this.eventQueue.length >= this.bufferSize) {
-      console.log("Message sent ")
-      console.log(this.eventQueue)
-      this.socket.emit(event, this.eventQueue,()=>this.eventQueue = []);
-      
+  buildMouseTrackerEvent(x,y,interactionType){
+    return {
+      event:"Mouse",
+      payload:{
+        type:"mouse",
+        x:x,
+        y:y,
+        interactionType:interactionType,
+        timeStamp: Date.now()
+      }
     }
   }
-}
 
+  trackEvent(event,payload) {
+    this.eventQueue.push({ event:event ,payload:payload});
+     this.flushQueue();
+  }
+
+  flushQueue() {
+    while(this.isConnected && this.eventQueue.length > this.bufferSize) {
+      console.log("Message sent ")
+      console.log(this.eventQueue)
+      const element = this.eventQueue[this.eventQueue.length - 1]
+      console.log(this.eventQueue[this.eventQueue.length - 1].event)
+     this.socket.emit(element.event, element.payload);
+     this.eventQueue.pop()
+     console.log("After ")
+     console.log(this.eventQueue)
+
+    
+  }
+}
+}
 export const socketManager = new SocketManager();

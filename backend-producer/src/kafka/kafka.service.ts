@@ -6,6 +6,7 @@ export class KafkaService {
   private readonly kafka: Kafka;
   private readonly producer: Producer;
   private readonly admin: Admin;
+  private readonly topics: string[];
   constructor() {
     this.kafka = new Kafka({
       clientId: 'analytical-producer',
@@ -13,6 +14,7 @@ export class KafkaService {
     });
     this.producer = this.kafka.producer();
     this.admin = this.kafka.admin();
+    this.topics = ['Buttons', 'Site'];
     //await this.producer.connect();
   }
 
@@ -21,18 +23,26 @@ export class KafkaService {
       await this.producer.connect();
       console.log('Kafka producer connected.');
       await this.admin.connect();
-      const result = await this.admin.createTopics({
-        topics: [
-          {
-            topic: 'Buttons',
-            numPartitions: 2, // default: -1 (uses broker `num.partitions` configuration)
-            replicationFactor: 1, // default: -1 (uses broker `default.replication.factor` configuration)
-            // Example: [{ name: 'cleanup.policy', value: 'compact' }] - default: []
-          },
-        ],
-      });
-      console.log('Topic creation result:', result);
+      const topicList = await this.admin.listTopics();
+      await Promise.all(
+        this.topics.map(async (element) => {
+          if ( topicList.includes(element)) return Promise<void>;
+        
+          const result =  await this.admin.createTopics({
+            topics: [
+              {
+                topic: element,
+                numPartitions: 2, // default: -1 (uses broker `num.partitions` configuration)
+                replicationFactor: 1, // default: -1 (uses broker `default.replication.factor` configuration)
+                // Example: [{ name: 'cleanup.policy', value: 'compact' }] - default: []
+              },
+            ],
+          });
+          console.log('Topic creation result:', result);
+        }),
+      );
       console.log(await this.admin.listTopics());
+
       await this.admin.disconnect();
     } catch (e) {
       console.error('Error in Kafka operations:', e);
@@ -46,7 +56,7 @@ export class KafkaService {
       await this.producer.send({
         topic,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        messages: [{ key: "butto", value: Buffer.from(payload) }],
+        messages: [{ key: 'button', value: Buffer.from(payload) }],
       });
       console.log(payload, ' sent');
     } catch (error) {

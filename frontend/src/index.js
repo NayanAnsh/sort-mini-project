@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import Main from "./layouts/main";
 import Home from "./layouts/home";
 import { SocketProvider } from "./context/socketContext";
+import { MouseTrackerProvider } from "./context/mouseTracker";
  
 const router = createBrowserRouter([
   {
@@ -30,8 +31,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SocketProvider>
+      <MouseTrackerProvider>
 
     <RouterProvider router={router} />
+      </MouseTrackerProvider>
     </SocketProvider>
   </React.StrictMode>
 );
