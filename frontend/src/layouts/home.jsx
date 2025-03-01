@@ -13,7 +13,10 @@ function Home() {
       socket.trackEvent(event,payload);
     },[location])
 
-
+const visualButtonHandle = ()=>{
+  const {event , payload} = socket.buildButtonClickEvent("Array Update")
+  socket.trackEvent(event,payload)
+}
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Sorting Algorithm Visualizer</h1>
@@ -85,6 +88,7 @@ function insertionSort(arr) {
       </p>
       <Link
         to="/Visualizer"
+        onClick={visualButtonHandle}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block"
       >
         Go to Visualizer
