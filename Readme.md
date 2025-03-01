@@ -3,7 +3,10 @@
 ## Overview
 
 This project is a comprehensive real-time analytics platform that captures, processes, and visualizes user interactions on a website. Leveraging a distributed event-driven architecture, the system efficiently handles large volumes of user activity data using Kafka, WebSockets, Redis, and NestJS.
+## Live Deployment of frontend
 
+To view the project live, visit: [Sorting Algorithm Visualizer.](http://sorting-website-bucket20250218200211800200000001.s3-website.ap-south-1.amazonaws.com/)
+()
 ## Key Features
 
 - **User Activity Tracking**  
