@@ -26,7 +26,7 @@ const Chart = () => {
   const [arrayInput, setArrayInput] = useState("3, 5, 2, 1, 2,4,4,3,2,5,6");
   //const [size, setSize] = useState(180);
   const [range, setRange] = useState(50);
-  const [timeInterval, setTimeInterval] = useState(400);
+  const [timeInterval, setTimeInterval] = useState(200);
 
   const d = {
     labels: pos,

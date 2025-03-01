@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import {faker} from '@faker-js/faker';
 const MAX_X_AXIS = 850
-const MAX_Y_AXIS = 400
+const MAX_Y_AXIS = 1000
 interface MouseHeatmapProps {
   data: StreamItem<MouseData>[];
   width?: string | number;
